@@ -4,6 +4,7 @@ class User_model extends CI_model
 {
 	public function check_login()
 	{
+		unset($_SESSION);
 		pr($this->session->userdata());
 	}
 }
