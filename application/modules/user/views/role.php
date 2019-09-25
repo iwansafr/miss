@@ -77,7 +77,7 @@
 			            <td>
 			            	<a href="<?php echo base_url('user/role_edit/'.$value['id'])?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> edit</a>
 			            	|
-			            	<a href="<?php echo base_url('user/delete_role/'.$value['id'])?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['title']?>')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
+			            	<a href="<?php echo base_url('user/role_delete/'.$value['id'])?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['title']?>')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
 			            </td>
 			          </tr>
 			          <?php $i++; ?>

@@ -41,11 +41,16 @@
 				</div>
 				<div class="form-group">
 					<label for="role">role</label>
-					<select class="custom-select" name="role" multiple>
-					  <option selected>Open this select menu</option>
-					  <option value="1">One</option>
-					  <option value="2">Two</option>
-					  <option value="3">Three</option>
+					<select class="custom-select" name="role[]" multiple>
+						<?php if (!empty($role)): ?>
+						  <?php foreach ($role as $key => $value): ?>
+						  	<?php $selected = ''; ?>
+						  	<?php if (in_array($value['id'], $data['user_role'])): ?>
+						  		<?php $selected = 'selected'; ?>
+						  	<?php endif ?>
+								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
+						  <?php endforeach ?>
+						<?php endif ?>
 					</select>
 				</div>
 			</div>

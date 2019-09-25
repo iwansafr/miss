@@ -23,7 +23,7 @@ class User extends CI_Controller
 	public function edit($id = 0)
 	{
 		$data = $this->user_model->save($id);
-		$this->load->view('index',['data'=>$data]);
+		$this->load->view('index',['data'=>$data,'role'=>$this->user_model->role_all()]);
 	}
 	public function list()
 	{
@@ -36,6 +36,24 @@ class User extends CI_Controller
 		$data = $this->user_model->role_save();
 		$data['data'] = $this->user_model->role_all();
 		$this->load->view('index',['data'=>$data]);
+	}
+
+	public function role_edit($id = 0)
+	{
+		if(!empty($id))
+		{
+			$data = $this->user_model->role_save($id);
+			$this->load->view('index', ['data'=>$data]);
+		}
+	}
+
+	public function role_delete($id=0)
+	{
+		if(!empty($id))
+		{
+			$data = $this->user_model->role_delete($id);
+			$this->load->view('index', ['data'=>$data]);
+		}
 	}
 
 	public function delete($id=0)
