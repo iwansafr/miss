@@ -39,6 +39,15 @@
 					<label for="email">email</label>
 					<input type="email" class="form-control" name="email" placeholder="email" value="<?php echo @$data['user']['email'] ?>">
 				</div>
+				<div class="form-group">
+					<label for="role">role</label>
+					<select class="custom-select" name="role" multiple>
+					  <option selected>Open this select menu</option>
+					  <option value="1">One</option>
+					  <option value="2">Two</option>
+					  <option value="3">Three</option>
+					</select>
+				</div>
 			</div>
 			<div class="panel-footer card-footer">
 				<button class="btn btn-success btn-sm" type="submit"><i class="fa fa-save"></i> Simpan</button>

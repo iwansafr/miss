@@ -42,19 +42,20 @@ class User_model extends CI_model
 				$exist = $this->db->get_where('user', ['username'=>$data['username']])->row_array();
 				if(empty($exist))
 				{
-					if($this->db->insert('user',[
-						'password'=>encrypt($data['password']),
-						'username'=>$data['username'],
-						'email'=>@$data['email'],
-					]))
-					{
-						$msg = ['status'=>'success', 'msg'=>'user berhasil disimpan'];
-						$last_id = $this->db->insert_id();
-						if(!$this->db->insert('user_profile', ['user_id'=>$last_id, 'nama'=>$data['nama']]))
-						{
-							$msg['msgs'][] = 'nama gagal disimpan';
-						}
-					}
+					pr($data);
+					// if($this->db->insert('user',[
+					// 	'password'=>encrypt($data['password']),
+					// 	'username'=>$data['username'],
+					// 	'email'=>@$data['email'],
+					// ]))
+					// {
+					// 	$msg = ['status'=>'success', 'msg'=>'user berhasil disimpan'];
+					// 	$last_id = $this->db->insert_id();
+					// 	if(!$this->db->insert('user_profile', ['user_id'=>$last_id, 'nama'=>$data['nama']]))
+					// 	{
+					// 		$msg['msgs'][] = 'nama gagal disimpan';
+					// 	}
+					// }
 				}else{
 					$msg['msgs'][] = 'username sudah ada';
 				}
@@ -72,6 +73,50 @@ class User_model extends CI_model
 		return $msg;
 	}
 
+	public function role_save($id = 0)
+	{
+		$msg = [];
+		if(!empty($this->input->post()))
+		{
+			$msg = ['status'=>'danger', 'msg'=>'user gagal disimpan'];
+			$data = $this->input->post();
+			if(!empty($id))
+			{
+				$this->db->select('id');
+				$exist = $this->db->get_where('user_role', ['title'=>$data['title']])->row_array();
+				$current_user = $this->db->get_where('user', ['id'=>$id])->row_array();
+				if($current_user['id'] == $exist['id'] || empty($exist))
+				{
+					$this->db->where('id',$id);
+					if($this->db->update('user',$data))
+					{
+						$msg = ['status'=>'success', 'msg'=>'user berhasil disimpan'];
+						$this->db->where('user_id',$id);
+						if(!$this->db->update('user_profile', ['user_id'=>$id, 'nama'=>$data['nama']]))
+						{
+							$msg['msgs'][] = 'nama gagal disimpan';
+						}
+					}
+				}else{
+					$msg['msgs'][] = 'title sudah ada';
+				}
+			}else{
+				$this->db->select('id');
+				$exist = $this->db->get_where('user_role', ['title'=>$data['title']])->row_array();
+				if(empty($exist))
+				{
+					if($this->db->insert('user_role',$data))
+					{
+						$msg = ['status'=>'success', 'msg'=>'user role berhasil disimpan'];
+					}
+				}else{
+					$msg['msgs'][] = 'title sudah ada';
+				}
+			}
+		}
+		return $msg;
+	}
+
 	public function all()
 	{
 		$this->db->select('user.*,user_profile.nama');
@@ -80,6 +125,11 @@ class User_model extends CI_model
 		// $this->db->where(['user.id'=>$id]);
 
 		return $this->db->get()->result_array();
+	}
+
+	public function role_all()
+	{
+		return $this->db->get('user_role')->result_array();
 	}
 	public function delete($id=0)
 	{

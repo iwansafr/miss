@@ -31,6 +31,13 @@ class User extends CI_Controller
 		$this->load->view('index', ['data'=>$data]);
 	}
 
+	public function role()
+	{
+		$data = $this->user_model->role_save();
+		$data['data'] = $this->user_model->role_all();
+		$this->load->view('index',['data'=>$data]);
+	}
+
 	public function delete($id=0)
 	{
 		if(!empty($id))
