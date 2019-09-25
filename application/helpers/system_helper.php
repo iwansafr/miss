@@ -50,3 +50,39 @@ if(!function_exists('pr'))
 		}
 	}
 }
+
+function encrypt($string = '')
+{
+	$key = '';
+	if(!empty($string))
+	{
+		$key = password_hash($string, PASSWORD_DEFAULT);
+	}
+	return $key;
+}
+
+function decrypt($string = '', $current_key = '')
+{
+	$key = '';
+	if(!empty($string) && !empty($current_key))
+	{
+		$key = password_verify($string, $current_key);
+	}
+	return $key;
+}
+
+function alert($alert = 'warning',$msg = '', $strong = '')
+{
+	if(empty($strong))
+	{
+		$strong = $alert.'!';
+	}
+	?>
+	<div class="alert alert-<?php echo $alert;?> alert-dismissible fade show" role="alert">
+	  <strong><?php echo $strong?></strong> <?php echo $msg?>
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<?php
+}

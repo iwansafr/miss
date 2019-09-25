@@ -6,7 +6,8 @@ class User extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('user_model');
-		$this->check_login();
+		$this->load->library('upload');
+		// $this->check_login();
 	}
 
 	public function index()
@@ -17,5 +18,25 @@ class User extends CI_Controller
 	public function check_login()
 	{
 		$this->user_model->check_login();
+	}
+
+	public function edit($id = 0)
+	{
+		$data = $this->user_model->save($id);
+		$this->load->view('index',['data'=>$data]);
+	}
+	public function list()
+	{
+		$data = $this->user_model->all();
+		$this->load->view('index', ['data'=>$data]);
+	}
+
+	public function delete($id=0)
+	{
+		if(!empty($id))
+		{
+			$data = $this->user_model->delete($id);
+			$this->load->view('index', ['data'=>$data]);
+		}
 	}
 }

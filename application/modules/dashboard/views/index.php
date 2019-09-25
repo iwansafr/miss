@@ -18,7 +18,7 @@
         </ol>
         <div class="row">
           <?php 
-          $this->load->view($this->uri->rsegments[1].'/'.$this->uri->rsegments[2]);
+          $this->load->view('main');
           ?>
         </div>
       </div>
