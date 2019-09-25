@@ -20,6 +20,16 @@ class User extends CI_Controller
 		$this->user_model->check_login();
 	}
 
+	public function login()
+	{
+		$this->load->view('user/login',['data'=>$this->user_model->login()]);
+	}
+
+	public function logout()
+	{
+		session_destroy();
+	}
+
 	public function edit($id = 0)
 	{
 		$data = $this->user_model->save($id);

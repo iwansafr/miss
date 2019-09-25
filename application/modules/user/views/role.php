@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-
 <div class="col-md-3">
 	<?php if (!empty($data['msg'])): ?>
 		<?php echo alert($data['status'],$data['msg']) ?>
