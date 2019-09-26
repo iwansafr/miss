@@ -34,7 +34,10 @@
 	<div class="card">
 	  <div class="card-header">
 	    <i class="fas fa-table"></i>
-	    Data Kelas</div>
+	    Data Kelas
+	    <a href="<?php echo base_url('kelas/download_template') ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-download"></i> template</a>
+	    <a href="<?php echo base_url('kelas/upload') ?>" class="btn btn-success btn-sm"><i class="fa fa-upload"></i> upload</a>
+	  </div>
 	  <div class="card-body">
 	    <div class="table-responsive">
 	      <table class="table table-bordered" id="dataTable" class="datatable" width="100%" cellspacing="0">

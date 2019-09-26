@@ -15,3 +15,7 @@
 
   <!-- Demo scripts for this page-->
   <script src="<?php echo base_url();?>assets/js/demo/datatables-demo.js"></script>
+
+  <?php if ($this->uri->rsegments[1].'/'.$this->uri->rsegments[2] == 'kelas/upload'): ?>
+    <script src="<?php echo base_url();?>assets/js/modules/kelas/script.js"></script>
+  <?php endif ?>

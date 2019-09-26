@@ -7,6 +7,59 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
+DROP TABLE IF EXISTS `kelas`;
+CREATE TABLE `kelas` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `kelas` (`id`, `nama`) VALUES
+(11, 'X AKL 1'),
+(12, 'X AKL 2'),
+(4, 'X BDP 1'),
+(5, 'X BDP 2'),
+(6, 'X OTKP 1'),
+(7, 'X OTKP 2'),
+(8, 'X OTKP 3'),
+(1, 'X RPL 1'),
+(2, 'X RPL 2'),
+(9, 'X TBSM 1'),
+(10, 'X TBSM 2'),
+(22, 'XI AKL 1'),
+(23, 'XI AKL 2'),
+(15, 'XI BDP 1'),
+(16, 'XI BDP 2'),
+(19, 'XI OTKP 1'),
+(20, 'XI OTKP 2'),
+(21, 'XI OTKP 3'),
+(13, 'XI RPL 1'),
+(14, 'XI RPL 2'),
+(17, 'XI TBSM 1'),
+(18, 'XI TBSM 2'),
+(31, 'XII AKL 1'),
+(32, 'XII AKL 2'),
+(29, 'XII BDP 1'),
+(30, 'XII BDP 2'),
+(24, 'XII OTKP 1'),
+(25, 'XII OTKP 2'),
+(26, 'XII OTKP 3'),
+(27, 'XII RPL 1'),
+(28, 'XII RPL 2'),
+(33, 'XII TBSM 1'),
+(34, 'XII TBSM 2');
+
+DROP TABLE IF EXISTS `siswa`;
+CREATE TABLE `siswa` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `nis` varchar(20) NOT NULL,
+  `nisn` varchar(20) NOT NULL,
+  `gender` tinyint(1) NOT NULL,
+  `photo` varchar(255) NOT NULL,
+  `tmpt_lhr` varchar(255) NOT NULL,
+  `tgl_lhr` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
@@ -64,6 +117,13 @@ INSERT INTO `user_role` (`id`, `title`, `description`, `level`, `created`, `upda
 (3, 'guru', 'akun untuk guru', 10, '2019-09-25 22:16:47', '2019-09-25 22:16:47');
 
 
+ALTER TABLE `kelas`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nama` (`nama`);
+
+ALTER TABLE `siswa`
+  ADD PRIMARY KEY (`id`);
+
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
@@ -81,6 +141,10 @@ ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
 
 
+ALTER TABLE `kelas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+ALTER TABLE `siswa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 ALTER TABLE `user_has_role`
