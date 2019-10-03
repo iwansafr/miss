@@ -21,6 +21,17 @@
       <a class="dropdown-item" href="<?php echo base_url('user/role') ?>"><i class="fa fa-list"></i> user role</a>
     </div>
   </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Guru</span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+      <h6 class="dropdown-header">Guru:</h6>
+      <a class="dropdown-item" href="<?php echo base_url('guru/edit') ?>"><i class="fa fa-plus"></i> tambah guru</a>
+      <a class="dropdown-item" href="<?php echo base_url('guru/list') ?>"><i class="fa fa-list"></i> data guru</a>
+    </div>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="<?php echo base_url('kelas') ?>">
       <i class="fas fa-fw fa-chart-area"></i>
