@@ -22,7 +22,8 @@ class Siswa extends CI_Controller
 
 	public function list()
 	{
-		$this->load->view('index');
+		$data = $this->siswa_model->all();
+		$this->load->view('index', ['data'=>$data, 'gender'=>['perempuan','laki-laki']]);
 	}
 
 	public function edit($id = 0)
