@@ -59,7 +59,8 @@ CREATE TABLE `siswa` (
   `gender` tinyint(1) NOT NULL,
   `photo` varchar(255) NOT NULL,
   `tmpt_lhr` varchar(255) NOT NULL,
-  `tgl_lhr` date NOT NULL
+  `tgl_lhr` date NOT NULL,
+  `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `user`;

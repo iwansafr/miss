@@ -49,8 +49,8 @@
 					<input type="file" class="form-control" name="photo" placeholder="photo" value="<?php echo @$data['data']['photo'] ?>">
 				</div>
 				<div class="form-group">
-					<label for="tmp_lhr">tempat lahir</label>
-					<input type="text" class="form-control" name="tmp_lhr" placeholder="tempat lahir" value="<?php echo @$data['data']['tmp_lhr'] ?>">
+					<label for="tmpt_lhr">tempat lahir</label>
+					<input type="text" class="form-control" name="tmpt_lhr" placeholder="tempat lahir" value="<?php echo @$data['data']['tmpt_lhr'] ?>">
 				</div>
 				<div class="form-group">
 					<label for="tgl_lhr">tgl lahir</label>
