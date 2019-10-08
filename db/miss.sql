@@ -9,19 +9,6 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
-DROP TABLE IF EXISTS `guru`;
-CREATE TABLE `guru` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `kode` char(2) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `kelamin` tinyint(1) NOT NULL DEFAULT '1',
-  `hp` varchar(20) NOT NULL,
-  `alamat` text NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 DROP TABLE IF EXISTS `kelas`;
 CREATE TABLE `kelas` (
   `id` int(11) NOT NULL,
@@ -129,12 +116,9 @@ CREATE TABLE `user_role` (
 INSERT INTO `user_role` (`id`, `title`, `description`, `level`, `created`, `updated`) VALUES
 (1, 'admin', 'user untuk admin', 1, '2019-09-25 18:53:20', '2019-09-25 18:53:20'),
 (2, 'petugas', 'user untuk petugas', 2, '2019-09-25 18:54:19', '2019-09-25 19:28:51'),
-(3, 'guru', 'akun untuk guru', 10, '2019-09-25 22:16:47', '2019-09-25 22:16:47');
+(3, 'guru', 'akun untuk guru', 10, '2019-09-25 22:16:47', '2019-09-25 22:16:47'),
+(4, 'siswa', 'akun untuk siswa', 15, '2019-10-08 13:10:46', '2019-10-08 13:10:46');
 
-
-ALTER TABLE `guru`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `kode` (`kode`);
 
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id`),
@@ -160,9 +144,6 @@ ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
 
 
-ALTER TABLE `guru`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 ALTER TABLE `kelas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
@@ -179,7 +160,7 @@ ALTER TABLE `user_profile`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 ALTER TABLE `user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 
 ALTER TABLE `user_has_role`
