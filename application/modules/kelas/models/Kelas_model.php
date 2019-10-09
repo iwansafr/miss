@@ -67,7 +67,7 @@ class Kelas_model extends CI_Model
 	{
 		if(!empty($id))
 		{
-			if($this->db->delete('kelas', ['id'=>$id]))
+			if($this->db->delete('siswa', ['id'=>$id]))
 			{
 				return ['status'=>'success','msg'=>'data berhasil dihapus'];
 			}else{

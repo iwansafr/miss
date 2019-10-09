@@ -45,6 +45,20 @@
 					</select>
 				</div>
 				<div class="form-group">
+					<label for="th_ajaran">angkatan</label>
+					<select name="th_ajaran" class="form-control">
+						<?php if (!empty($th_ajaran)): ?>
+						  <?php foreach ($th_ajaran as $key => $value): ?>
+						  	<?php $selected = ''; ?>
+						  	<?php if (in_array($value['id'], $data['title'])): ?>
+						  		<?php $selected = 'selected'; ?>
+						  	<?php endif ?>
+								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
+						  <?php endforeach ?>
+						<?php endif ?>
+					</select>
+				</div>
+				<div class="form-group">
 					<label for="photo">photo</label>
 					<input type="file" class="form-control" name="photo" placeholder="photo" value="<?php echo @$data['data']['photo'] ?>">
 				</div>

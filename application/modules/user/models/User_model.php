@@ -95,13 +95,16 @@ class User_model extends CI_model
 		return $msg;
 	}
 
-	public function save($id = 0)
+	public function save($id = 0, $data = array())
 	{
 		$msg = [];
 		if(!empty($this->input->post()))
 		{
 			$msg = ['status'=>'danger', 'msg'=>'user gagal disimpan'];
-			$data = $this->input->post();
+			if(empty($data))
+			{
+				$data = $this->input->post();
+			}
 			if(!empty($id))
 			{
 				$this->db->select('id');
@@ -175,6 +178,7 @@ class User_model extends CI_model
 					{
 						$msg = ['status'=>'success', 'msg'=>'user berhasil disimpan'];
 						$last_id = $this->db->insert_id();
+						$msg['user_id'] = $last_id;
 						if(!$this->db->insert('user_profile', ['user_id'=>$last_id, 'nama'=>$data['nama']]))
 						{
 							$msg['msgs'][] = 'nama gagal disimpan';

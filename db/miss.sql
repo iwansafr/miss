@@ -53,6 +53,7 @@ INSERT INTO `kelas` (`id`, `nama`) VALUES
 DROP TABLE IF EXISTS `siswa`;
 CREATE TABLE `siswa` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `nis` varchar(20) NOT NULL,
   `nisn` varchar(20) NOT NULL,
@@ -63,6 +64,30 @@ CREATE TABLE `siswa` (
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `siswa` (`id`, `user_id`, `nama`, `nis`, `nisn`, `gender`, `photo`, `tmpt_lhr`, `tgl_lhr`, `alamat`) VALUES
+(3, 4, 'johanudin', '123', '1234', 1, '-', 'jepara', '2019-01-01', 'tengguli');
+
+DROP TABLE IF EXISTS `siswa_has_angkatan`;
+CREATE TABLE `siswa_has_angkatan` (
+  `id` int(11) NOT NULL,
+  `siswa_id` int(11) NOT NULL,
+  `th_ajaran_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `siswa_has_angkatan` (`id`, `siswa_id`, `th_ajaran_id`) VALUES
+(2, 3, 1);
+
+DROP TABLE IF EXISTS `th_ajaran`;
+CREATE TABLE `th_ajaran` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `th_ajaran` (`id`, `title`) VALUES
+(1, '2017-2018'),
+(2, '2018-2019'),
+(3, '2019-2020');
+
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
@@ -70,13 +95,15 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0',
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `token`, `created`, `updated`) VALUES
-(1, 'root', '$2y$10$C3zyhmbvnu7vD0DS.xjJT.RMTOp4oTDEV9/7UFljdIz.bOBsX6NPG', 'iwan@gmail.com', '', '2019-09-25 20:42:39', '2019-09-26 02:32:42'),
-(2, 'aw', '$2y$10$C3zyhmbvnu7vD0DS.xjJT.RMTOp4oTDEV9/7UFljdIz.bOBsX6NPG', 'iwansafr@gmail.com', '', '2019-09-25 22:17:18', '2019-09-25 22:17:18');
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `token`, `active`, `created`, `updated`) VALUES
+(1, 'root', '$2y$10$C3zyhmbvnu7vD0DS.xjJT.RMTOp4oTDEV9/7UFljdIz.bOBsX6NPG', 'iwan@gmail.com', '', 0, '2019-09-25 20:42:39', '2019-09-26 02:32:42'),
+(2, 'aw', '$2y$10$C3zyhmbvnu7vD0DS.xjJT.RMTOp4oTDEV9/7UFljdIz.bOBsX6NPG', 'iwansafr@gmail.com', '', 0, '2019-09-25 22:17:18', '2019-09-25 22:17:18'),
+(4, '1234', '$2y$10$8OvsVVRmI5gW2IAazzze/.05s8MKFKXmq5US8pVhayGoH.DY6BX.S', '-', '', 0, '2019-10-09 09:50:36', '2019-10-09 09:50:36');
 
 DROP TABLE IF EXISTS `user_has_role`;
 CREATE TABLE `user_has_role` (
@@ -89,7 +116,8 @@ INSERT INTO `user_has_role` (`id`, `user_id`, `user_role_id`) VALUES
 (3, 2, 3),
 (36, 1, 3),
 (37, 1, 1),
-(38, 1, 2);
+(38, 1, 2),
+(40, 4, 4);
 
 DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
@@ -102,7 +130,8 @@ CREATE TABLE `user_profile` (
 
 INSERT INTO `user_profile` (`id`, `user_id`, `nama`, `gender`, `photo`) VALUES
 (1, 1, 'root', 1, ''),
-(2, 2, 'iwan safrudin, S.Kom', 1, '');
+(2, 2, 'iwan safrudin, S.Kom', 1, ''),
+(4, 4, 'johanudin', 1, '');
 
 DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
@@ -128,6 +157,12 @@ ALTER TABLE `kelas`
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `siswa_has_angkatan`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `th_ajaran`
+  ADD PRIMARY KEY (`id`);
+
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
@@ -149,16 +184,22 @@ ALTER TABLE `kelas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 ALTER TABLE `siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+ALTER TABLE `siswa_has_angkatan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+ALTER TABLE `th_ajaran`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 ALTER TABLE `user_has_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 ALTER TABLE `user_profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 ALTER TABLE `user_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
