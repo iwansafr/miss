@@ -105,6 +105,7 @@ class User_model extends CI_model
 			{
 				$data = $this->input->post();
 			}
+			
 			if(!empty($id))
 			{
 				$this->db->select('id');

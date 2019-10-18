@@ -44,6 +44,7 @@
 	        <thead>
 	          <tr>
 	            <th>No</th>
+	            <th>id</th>
 	            <th>title</th>
 	            <th>action</th>
 	          </tr>
@@ -51,6 +52,7 @@
 	        <tfoot>
 	          <tr>
 	            <th>No</th>
+	            <th>id</th>
 	            <th>title</th>
 	            <th>action</th>
 	          </tr>
@@ -61,6 +63,7 @@
 		        	<?php foreach ($data['data'] as $key => $value): ?>
 			          <tr>
 			            <td><?php echo $i ?></td>
+			            <td><?php echo $value['id'] ?></td>
 			            <td><?php echo $value['title'] ?></td>
 			            <td>
 			            	<a href="<?php echo base_url('th_ajaran/edit/'.$value['id'])?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> edit</a>

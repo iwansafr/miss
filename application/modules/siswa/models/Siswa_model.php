@@ -15,26 +15,26 @@ class Siswa_model extends CI_Model
 			$msg = ['status'=>'danger', 'msg'=>'siswa gagal disimpan'];
 			$data = $this->input->post();
 			$siswa_input = [
-				'nama'=>$data['nama'],
-				'nis'=>$data['nis'],
-				'nisn'=>$data['nisn'],
-				'gender'=>$data['gender'],
-				'photo'=> empty($data['photo']) ? '-' : $data['photo'],
-				'tmpt_lhr'=>$data['tmpt_lhr'],
-				'tgl_lhr'=>$data['tgl_lhr'],
-				'alamat'=>$data['alamat']
+				'nama'     => $data['nama'],
+				'nis'      => $data['nis'],
+				'nisn'     => $data['nisn'],
+				'gender'   => $data['gender'],
+				'photo'    => empty($data['photo']) ? '-' : $data['photo'],
+				'tmpt_lhr' => $data['tmpt_lhr'],
+				'tgl_lhr'  => $data['tgl_lhr'],
+				'alamat'   => $data['alamat']
 			];
 			$user_input = [
 				'username' => $data['nisn'],
 				'password' => encrypt('123456'),
-				'email' => '-',
-				'active' => 0,
-				'role'=>[4],
-				'nama'=>$data['nama'],
-				'gender'=>$data['gender']
+				'email'    => '-',
+				'active'   => 0,
+				'role'     => [4],
+				'nama'     => $data['nama'],
+				'gender'   => $data['gender']
 			];
 			$angkatan_input = [
-				'th_ajaran_id'=> $data['th_ajaran']
+				'th_ajaran_id' => $data['th_ajaran']
 			];
 			if(!empty($id))
 			{
@@ -56,6 +56,8 @@ class Siswa_model extends CI_Model
 				$exist = $this->db->get_where('siswa', ['nisn'=>$siswa_input['nisn']])->row_array();
 				if(empty($exist))
 				{
+					$user_status = $this->user_model->save(0, $user_input);
+					$siswa_input['user_id'] = $user_status['user_id'];
 					if($this->db->insert('siswa',$siswa_input))
 					{
 						$msg = ['status'=>'success', 'msg'=>'siswa berhasil disimpan'];
@@ -65,17 +67,16 @@ class Siswa_model extends CI_Model
 					{
 						$angkatan_input['siswa_id'] = $last_id;
 						$this->load->model('user/user_model');
-						$user_status = $this->user_model->save(0, $user_input);
 						if($this->db->insert('siswa_has_angkatan', $angkatan_input))
 						{
 							$msg = ['status'=>'success', 'msg'=>'siswa berhasil disimpan'];
 						}else{
 							$msg = ['status'=>'danger', 'msg'=>'akun siswa gagal disimpan'];
 						}
-						if(!empty($user_status['user_id']))
-						{
-							$this->db->update('siswa',['user_id'=>$user_status['user_id']],['id'=>$last_id]);
-						}
+						// if(!empty($user_status['user_id']))
+						// {
+						// 	$this->db->update('siswa',['user_id'=>$user_status['user_id']],['id'=>$last_id]);
+						// }
 					}
 				}else{
 					$msg['msgs'][] = 'nisn sudah ada';
