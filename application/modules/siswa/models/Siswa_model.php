@@ -89,11 +89,11 @@ class Siswa_model extends CI_Model
 		}
 		return $msg;
 	}
-	public function delete($id=0)
+	public function delete($nisn=0)
 	{
-		if(!empty($id))
+		if(!empty($nisn))
 		{
-			if($this->db->delete('siswa', ['id'=>$id]))
+			if($this->db->delete('user', ['username'=>$nisn]))
 			{
 				return ['status'=>'success','msg'=>'data berhasil dihapus'];
 			}else{

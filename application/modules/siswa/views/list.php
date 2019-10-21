@@ -50,7 +50,7 @@
 			            <td>
 			            	<a href="<?php echo base_url('siswa/edit/'.$value['id'])?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> edit</a>
 			            	|
-			            	<a href="<?php echo base_url('siswa/delete/'.$value['id'])?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['nama']?>')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
+			            	<a href="<?php echo base_url('siswa/delete/'.$value['nisn'])?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['nama']?>')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
 			            </td>
 			          </tr>
 			          <?php $i++; ?>
