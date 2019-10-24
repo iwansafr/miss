@@ -59,6 +59,20 @@
 					</select>
 				</div>
 				<div class="form-group">
+					<label for="kelas">kelas</label>
+					<select name="kelas" class="form-control">
+						<?php if (!empty($kelas)): ?>
+						  <?php foreach ($kelas as $key => $value): ?>
+						  	<?php $selected = ''; ?>
+						  	<?php if (in_array($value['id'], $data['nama'])): ?>
+						  		<?php $selected = 'selected'; ?>
+						  	<?php endif ?>
+								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['nama'] ?></option>
+						  <?php endforeach ?>
+						<?php endif ?>
+					</select>
+				</div>
+				<div class="form-group">
 					<label for="photo">photo</label>
 					<input type="file" class="form-control" name="photo" placeholder="photo" value="<?php echo @$data['data']['photo'] ?>">
 				</div>

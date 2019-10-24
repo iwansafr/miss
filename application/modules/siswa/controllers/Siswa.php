@@ -13,6 +13,7 @@ class Siswa extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('siswa_model');
+		$this->load->model('kelas/kelas_model');
 	}
 
 	public function index()
@@ -38,6 +39,6 @@ class Siswa extends CI_Controller
 	public function edit($id = 0)
 	{
 		$data = $this->siswa_model->save($id);
-		$this->load->view('index', ['data'=>$data,'gender'=>['0'=>['id'=>'0','title'=>'Perempuan'],'1'=>['id'=>'1','title'=>'Laki-laki']],'th_ajaran'=>$this->siswa_model->th_ajaran()]);
+		$this->load->view('index', ['data'=>$data,'kelas'=>$this->kelas_model->all(),'gender'=>['0'=>['id'=>'0','title'=>'Perempuan'],'1'=>['id'=>'1','title'=>'Laki-laki']],'th_ajaran'=>$this->siswa_model->th_ajaran()]);
 	}
 }

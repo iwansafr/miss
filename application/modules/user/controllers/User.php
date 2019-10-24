@@ -36,9 +36,6 @@ class User extends CI_Controller
 
 		
 		$this->load->library('upload');
-		print_r($this->upload->do_upload('photo'));
-		print_r($this->upload);
-		print_r($this->upload->display_errors('<p>', '</p>'));
 		// $data['photo'] = $this->upload->data('photo');
 		$this->load->view('index',['data'=>$data,'role'=>$this->user_model->role_all()]);
 	}
