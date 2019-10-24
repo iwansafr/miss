@@ -7,6 +7,19 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
+DROP TABLE IF EXISTS `guru`;
+CREATE TABLE `guru` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `gender` tinyint(1) NOT NULL DEFAULT '1',
+  `alamat` int(11) NOT NULL,
+  `hp` int(11) NOT NULL,
+  `photo` int(11) NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `kelas`;
 CREATE TABLE `kelas` (
   `id` int(11) NOT NULL,
@@ -52,6 +65,9 @@ DROP TABLE IF EXISTS `siswa`;
 CREATE TABLE `siswa` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `kelas_id` int(11) NOT NULL,
+  `th_ajaran_id` int(11) NOT NULL,
+  `angkatan` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `nis` varchar(20) NOT NULL,
   `nisn` varchar(20) NOT NULL,
@@ -60,13 +76,6 @@ CREATE TABLE `siswa` (
   `tmpt_lhr` varchar(255) NOT NULL,
   `tgl_lhr` date NOT NULL,
   `alamat` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `siswa_has_angkatan`;
-CREATE TABLE `siswa_has_angkatan` (
-  `id` int(11) NOT NULL,
-  `siswa_id` int(11) NOT NULL,
-  `th_ajaran_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `th_ajaran`;
@@ -109,19 +118,6 @@ INSERT INTO `user_has_role` (`id`, `user_id`, `user_role_id`) VALUES
 (37, 1, 1),
 (38, 1, 2);
 
-DROP TABLE IF EXISTS `user_profile`;
-CREATE TABLE `user_profile` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `gender` tinyint(1) NOT NULL DEFAULT '1',
-  `photo` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `user_profile` (`id`, `user_id`, `nama`, `gender`, `photo`) VALUES
-(1, 1, 'root', 1, ''),
-(2, 2, 'iwan safrudin, S.Kom', 1, '');
-
 DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
   `id` int(11) NOT NULL,
@@ -139,18 +135,20 @@ INSERT INTO `user_role` (`id`, `title`, `description`, `level`, `created`, `upda
 (4, 'siswa', 'akun untuk siswa', 15, '2019-10-08 13:10:46', '2019-10-08 13:10:46');
 
 
+ALTER TABLE `guru`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nama` (`nama`);
 
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
-ALTER TABLE `siswa_has_angkatan`
-  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `kelas_id` (`kelas_id`),
   ADD KEY `th_ajaran_id` (`th_ajaran_id`),
-  ADD KEY `siswa_id` (`siswa_id`);
+  ADD KEY `angkatan` (`angkatan`);
 
 ALTER TABLE `th_ajaran`
   ADD PRIMARY KEY (`id`);
@@ -164,44 +162,37 @@ ALTER TABLE `user_has_role`
   ADD KEY `user_id` (`user_id`),
   ADD KEY `user_role_id` (`user_role_id`);
 
-ALTER TABLE `user_profile`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
 ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
 
 
+ALTER TABLE `guru`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `kelas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 ALTER TABLE `siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-ALTER TABLE `siswa_has_angkatan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `th_ajaran`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 ALTER TABLE `user_has_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
-ALTER TABLE `user_profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 ALTER TABLE `user_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
-ALTER TABLE `siswa`
-  ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `guru`
+  ADD CONSTRAINT `guru_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `siswa_has_angkatan`
-  ADD CONSTRAINT `siswa_has_angkatan_ibfk_1` FOREIGN KEY (`th_ajaran_id`) REFERENCES `th_ajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `siswa_has_angkatan_ibfk_2` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `siswa`
+  ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_ibfk_3` FOREIGN KEY (`th_ajaran_id`) REFERENCES `th_ajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_ibfk_4` FOREIGN KEY (`angkatan`) REFERENCES `th_ajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `user_has_role`
   ADD CONSTRAINT `user_has_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_has_role_ibfk_2` FOREIGN KEY (`user_role_id`) REFERENCES `user_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `user_profile`
-  ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
