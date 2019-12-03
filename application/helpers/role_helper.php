@@ -28,7 +28,7 @@ function is_siswa()
 function get_user()
 {
 	$link = str_replace('/', '_', base_url());
-	$user = $_SESSION[$link.'_logged_in'];
+	$user = @$_SESSION[$link.'_logged_in'];
 	return $user;
 }
 
