@@ -15,6 +15,7 @@
     <?php endif ?>
     <div id="content-wrapper">
       <div class="container-fluid">
+        <?php $time = date('H:i:s');echo $time;?>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
@@ -26,7 +27,7 @@
           $this->load->view($this->uri->rsegments[1] . '/' . $this->uri->rsegments[2]);
           ?>
         </div>
-      </div>
+      </div>      
       <?php if (is_admin() || is_root()): ?>
         <footer class="sticky-footer">
           <div class="container my-auto">
