@@ -9,13 +9,12 @@
 		<?php endif ?>
 	<?php endif ?>
 	<?php if (!empty($guru_has_mapel)): ?>
-		<?php if (empty($check_jurnal)): ?>
 			<h4>Kelas (<?php echo @$kelas[$guru_has_mapel['kelas_id']] ?>)</h4>
 			<h6>Guru (<?php echo @$guru['nama']; ?>, <?php echo @$mapel[$guru_has_mapel['mapel_id']] ?>, Jam <?php echo @$guru_has_mapel['jam_mulai'] ?> - <?php echo @$guru_has_mapel['jam_selesai'] ?>)</h6>
 			<form action="" method="post" enctype="multipart/form-data">
 				<div class="panel panel-default card card-default">
 					<div class="panel-heading card-header">
-						<?php if (empty($data['jurnal'])): ?>
+						<?php if (empty($check_jurnal)): ?>
 						 	tambah
 						 	<?php else: ?>
 						 	ubah
@@ -24,7 +23,7 @@
 					<div class="panel-body card-body">
 						<div class="form-group">
 							<label for="materi">materi</label>
-							<textarea name="materi" class="form-control" rows="3"></textarea>
+							<textarea name="materi" class="form-control" rows="3"><?php echo @$check_jurnal['materi']; ?></textarea>
 						</div>
 					</div>
 					<div class="panel-footer card-footer">
@@ -34,9 +33,6 @@
 					</div>
 				</div>
 			</form>
-		<?php else: ?>
-			Selamat mengajar di jam selanjutnya :)
-		<?php endif ?>
 	<?php else: ?>
 		Saatnya istirahat
 	<?php endif ?>

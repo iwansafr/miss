@@ -15,6 +15,11 @@ function is_petugas()
 	return check_role('petugas');
 }
 
+function is_ketua_kelas()
+{
+	return check_role('Ketua Kelas');
+}
+
 function is_siswa()
 {
 	return check_role('siswa');

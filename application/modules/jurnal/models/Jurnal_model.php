@@ -11,6 +11,7 @@ class Jurnal_model extends CI_Model
 		$msg = [];
 		$day = date ('D');
 		$time = date('H:m');
+		// $time = "07:30";
 
 		switch($day){
 			case 'Mon':			
@@ -32,9 +33,11 @@ class Jurnal_model extends CI_Model
 			$hari_ini = null;		
 			break;
 		}
-		$id_u = get_user()['id'];
+		// $hari_ini = 1;
+
+		$username = get_user()['username'];
 		$this->db->select('id');
-		$exist = $this->db->get_where('guru', ['user_id' => $id_u])->row_array();
+		$exist = $this->db->get_where('guru', ['kode' => $username])->row_array();
 		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
 		$k = $find_mhp['kelas_id'];
 		$tanggal = date('Y-m-d');
@@ -50,10 +53,15 @@ class Jurnal_model extends CI_Model
 				'tanggal' => $tanggal,
 				'kode' => $kode
 			];
+
+			$this->db->select('id');
+			$exist = $this->db->get_where('jurnal', ['kode'=>$kode])->row_array();
+			if (!empty($exist)) {
+				$id = $exist['id'];
+			}
+			
 			if(!empty($id))
 			{
-				$this->db->select('id');
-				$exist = $this->db->get_where('jurnal', ['kode'=>$kode])->row_array();
 				$current_user = $this->db->get_where('jurnal', ['id'=>$id])->row_array();
 				if($current_user['id'] == $exist['id'])
 				{

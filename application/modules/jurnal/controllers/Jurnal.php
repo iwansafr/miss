@@ -31,6 +31,7 @@ class Jurnal extends CI_Controller
 	{
 		$day = date ('D');
 		$time = date('H:m');
+		// $time = "07:30";
 
 		switch($day){
 			case 'Mon':			
@@ -52,10 +53,14 @@ class Jurnal extends CI_Controller
 			$hari_ini = null;		
 			break;
 		}
+		// $hari_ini = 1;
+		
 		$data = $this->jurnal_model->save($id);
-		$id_u = get_user()['id'];
-		$exist = $this->db->get_where('guru', ['user_id' => $id_u])->row_array();
+
+		$username = get_user()['username'];
+		$exist = $this->db->get_where('guru', ['kode' => $username])->row_array();
 		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
+
 		$tanggal = date('Y-m-d');
 		$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
 		$check_jurnal = $this->db->get_where('jurnal', ['kode' => $kode])->row_array();

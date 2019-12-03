@@ -148,26 +148,39 @@ class presensi extends CI_Controller
 	public function edit($id = 0)
 	{
 		$day = date ('D');
+		$data = [];				
+		$ket = [];				
+		$presensi = [];				
+		$o_kelas = [];				
+		$k = $this->input->get('k');
 		if($day == 'Sat' || $day == 'Sun'){
 			$data['data'] = 'Hari ini hari ' . $day . ' selamat libur.';
 			$this->load->view('index', ['data' => $data]);
 		}else{
-			$data = $this->presensi_model->save();
-			$kelas = $this->presensi_model->kelas();
-			$o_kelas = [];
-			foreach ($kelas as $key => $value) {
-				$o_kelas[$value['id']] = $value['nama'];
+			$is_ketua_kelas = is_ketua_kelas();
+			if($is_ketua_kelas)
+			{
+				$base_url = str_replace('/','_',base_url());
+				$is_in_class = $this->db->get_where('siswa',['nisn'=>$this->session->userdata($base_url.'_logged_in')['username']])->row_array();
+				if(@$is_in_class['kelas_id'] == $k)
+				{
+					$data = $this->presensi_model->save();
+					$kelas = $this->presensi_model->kelas();
+					$o_kelas = [];
+					foreach ($kelas as $key => $value) {
+						$o_kelas[$value['id']] = $value['nama'];
+					}
+					$data['data'] = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
+					$presensi = $this->db->get_where('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')])->result_array();
+					$ket = [
+						'0' => ['id' => '0', 'title' => '-', 'color' => 'btn-info'],
+						'1' => ['id' => '1', 'title' => 'Berangkat', 'color' => 'btn-primary'],
+						'2' => ['id' => '2', 'title' => 'Ijin', 'color' => 'btn-warning'],
+						'3' => ['id' => '3', 'title' => 'Absen', 'color' => 'btn-danger'],
+					];
+				}
 			}
-			$k = $this->input->get('k');
-			$data['data'] = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
-			$presensi = $this->db->get_where('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')])->result_array();
-			$ket = [
-				'0' => ['id' => '0', 'title' => '-', 'color' => 'btn-info'],
-				'1' => ['id' => '1', 'title' => 'Berangkat', 'color' => 'btn-primary'],
-				'2' => ['id' => '2', 'title' => 'Ijin', 'color' => 'btn-warning'],
-				'3' => ['id' => '3', 'title' => 'Absen', 'color' => 'btn-danger'],
-			];
-			$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas]);
+			$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas,'is_ketua_kelas'=>$is_ketua_kelas]);
 		}
 	}
 	public function delete($id = 0)
