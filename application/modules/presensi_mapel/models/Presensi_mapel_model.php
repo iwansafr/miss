@@ -116,7 +116,7 @@ class presensi_mapel_model extends CI_Model
 							$msg = ['status' => 'success', 'msg' => 'presensi berhasil disimpan'];
 						}
 					} else {
-						$msg['msgs'][] = 'Gagal edit presensi u';
+						$msg['msgs'][] = 'Gagal edit presensi';
 					}
 				} else {
 					$this->db->select('id');

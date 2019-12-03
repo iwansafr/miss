@@ -68,7 +68,7 @@ class Siswa extends CI_Controller
 						'gender'   => $data[$i]['GENDER']
 					];
 					$user_status = $this->user_model->save(0, $user_input);
-					$data[$i]['user_id'] = $user_status['user_id'];
+					$data[$i]['USER_ID'] = $user_status['user_id'];
 				}
 				$i++;
 			}

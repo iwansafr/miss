@@ -165,7 +165,7 @@ class presensi extends CI_Controller
 				'0' => ['id' => '0', 'title' => '-', 'color' => 'btn-info'],
 				'1' => ['id' => '1', 'title' => 'Berangkat', 'color' => 'btn-primary'],
 				'2' => ['id' => '2', 'title' => 'Ijin', 'color' => 'btn-warning'],
-				'3' => ['id' => '3', 'title' => 'Alasan', 'color' => 'btn-danger'],
+				'3' => ['id' => '3', 'title' => 'Absen', 'color' => 'btn-danger'],
 			];
 			$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas]);
 		}

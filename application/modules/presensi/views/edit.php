@@ -40,7 +40,7 @@
 							<?php if (!empty($data['data'])) : ?>
 								<?php $no = 1; ?>
 								<?php foreach ($data['data'] as $key => $value) : ?>
-									<tr>
+									<tr id="abs_<?php echo $value['id']?>">
 										<td><?php echo $no; ?></td>
 										<td><?php echo $value['nama'] ?></td>
 										<td align="center">

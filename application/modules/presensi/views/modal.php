@@ -2,7 +2,7 @@
     <?php foreach ($data['data'] as $key => $value) : ?>
         <div class="modal fade" id="exampleModal<?= $value['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="#abs_<?php echo $value['id']?>" method="post" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Absen</h5>

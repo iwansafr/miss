@@ -49,7 +49,7 @@
 											<div class="dropdown-menu">
 												<a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profil</a>
 												<a href="<?php echo base_url('guru/edit/' . $value['id']) ?>" class="dropdown-item"><i class="fa fa-pencil-alt"></i> edit</a>
-												<a class="dropdown-item" href="<?php echo base_url('guru_mapel/edit/?id=' . $value['id']) ?>"><i class="fa fa-bookmark"></i> Mapel</a>
+												<a class="dropdown-item" href="<?php echo base_url('guru_mapel/edit/?id=' . $value['id'].'&user_id='.$value['user_id']) ?>"><i class="fa fa-bookmark"></i> Mapel</a>
 												<a href="<?php echo base_url('guru/delete/' . $value['id']) ?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['nama'] ?>')){}else{return false;};" class="dropdown-item"><i class="fa fa-trash"></i> delete</a>
 											</div>
 										</div>

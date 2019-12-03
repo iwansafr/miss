@@ -58,7 +58,8 @@ class guru_mapel extends CI_Controller
 	public function edit($id = 0)
 	{
 		$data = $this->guru_mapel_model->save($id);
-		$id = $_GET['id'];
+		$id = @intval($_GET['id']);
+		$user_id = @intval($_GET['user_id']);
 		$data_guru = $this->db->get_where('guru_has_mapel', ['guru_id' => $id])->result_array();
 		$guru = $this->db->get_where('guru', ['id' => $id])->result_array();
 		$hari = [

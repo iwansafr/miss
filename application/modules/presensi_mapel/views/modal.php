@@ -13,7 +13,7 @@
                         <input type="hidden" name="siswa_id" value="<?= $value['id'] ?>">
                         <input type="hidden" name="kelas_id" value="<?= $value['kelas_id'] ?>">
                         <div class="modal-body">
-                            <select class="custom-select" size="3" name="keterangan" required>
+                            <select class="custom-select" size="5" name="keterangan" required>
                                 <?php if (!empty($presensi)) : ?>
                                     <?php foreach ($presensi as $key => $a) : ?>
                                         <?php if ($a['siswa_id'] == $value['id']) : ?>
