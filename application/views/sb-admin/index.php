@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <?php $this->load->view('sb-admin/meta') ?>
 </head>
 
 <body id="page-top">
-  <?php $this->load->view('sb-admin/nav-menu') ?>
+  <?php if (is_root() || is_admin() || is_petugas()): ?>
+    <?php $this->load->view('sb-admin/nav-menu') ?>
+  <?php endif ?>
   <div id="wrapper">
-    <?php $this->load->view('sb-admin/sidebar') ?>
+    <?php if (is_root() || is_admin() || is_petugas()): ?>
+      <?php $this->load->view('sb-admin/sidebar') ?>
+    <?php endif ?>
     <div id="content-wrapper">
       <div class="container-fluid">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Overview</li>
+          <li class="breadcrumb-item active"><?php echo $this->uri->rsegments[1]; ?></li>
         </ol>
         <div class="row">
-          <?php 
-          $this->load->view($this->uri->rsegments[1].'/'.$this->uri->rsegments[2]);
+          <?php
+          $this->load->view($this->uri->rsegments[1] . '/' . $this->uri->rsegments[2]);
           ?>
         </div>
       </div>
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright © SMK N 1 BANGSRI 2019</span>
+      <?php if (is_admin() || is_root()): ?>
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © SMK N 1 BANGSRI 2019</span>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      <?php endif ?>
 
     </div>
     <!-- /.content-wrapper -->
@@ -40,7 +47,6 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

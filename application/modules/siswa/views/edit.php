@@ -1,21 +1,21 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <div class="col-md-12">
-	<?php if (!empty($data['msg'])): ?>
-		<?php echo alert($data['status'],$data['msg']) ?>
-		<?php if (!empty($data['msgs'])): ?>
-			<?php foreach ($data['msgs'] as $key => $value): ?>
-					<?php echo alert($data['status'], $value) ?>
-				<?php endforeach ?>	
+	<?php if (!empty($data['msg'])) : ?>
+		<?php echo alert($data['status'], $data['msg']) ?>
+		<?php if (!empty($data['msgs'])) : ?>
+			<?php foreach ($data['msgs'] as $key => $value) : ?>
+				<?php echo alert($data['status'], $value) ?>
+			<?php endforeach ?>
 		<?php endif ?>
 	<?php endif ?>
 	<form action="" method="post" enctype="multipart/form-data">
 		<div class="panel panel-default card card-default">
 			<div class="panel-heading card-header">
-				<?php if (empty($data['data'])): ?>
-				 	tambah
-				 	<?php else: ?>
-				 	ubah
-				 <?php endif ?> siswa
+				<?php if (empty($data['data'])) : ?>
+					tambah
+				<?php else : ?>
+					ubah
+				<?php endif ?> siswa
 			</div>
 			<div class="panel-body card-body">
 				<div class="form-group">
@@ -33,42 +33,56 @@
 				<div class="form-group">
 					<label for="gender">gender</label>
 					<select name="gender" class="form-control">
-						<?php if (!empty($gender)): ?>
-						  <?php foreach ($gender as $key => $value): ?>
-						  	<?php $selected = ''; ?>
-						  	<?php if (in_array($value['id'], $data['user_role'])): ?>
-						  		<?php $selected = 'selected'; ?>
-						  	<?php endif ?>
+						<?php if (!empty($gender)) : ?>
+							<?php foreach ($gender as $key => $value) : ?>
+								<?php $selected = ''; ?>
+								<?php if ($value['id'] == $data['data']['gender']) : ?>
+									<?php $selected = 'selected'; ?>
+								<?php endif ?>
 								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
-						  <?php endforeach ?>
+							<?php endforeach ?>
+						<?php endif ?>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="agama">agama</label>
+					<select name="agama" class="form-control">
+						<?php if (!empty($agama)) : ?>
+							<?php foreach ($agama as $key => $value) : ?>
+								<?php $selected = ''; ?>
+								<?php if ($value['id'] == $data['data']['agama']) : ?>
+									<?php $selected = 'selected'; ?>
+								<?php endif ?>
+								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
+							<?php endforeach ?>
 						<?php endif ?>
 					</select>
 				</div>
 				<div class="form-group">
 					<label for="th_ajaran">angkatan</label>
 					<select name="th_ajaran" class="form-control">
-						<?php if (!empty($th_ajaran)): ?>
-						  <?php foreach ($th_ajaran as $key => $value): ?>
-						  	<?php $selected = ''; ?>
-						  	<?php if (in_array($value['id'], $data['title'])): ?>
-						  		<?php $selected = 'selected'; ?>
-						  	<?php endif ?>
+						<?php if (!empty($th_ajaran)) : ?>
+							<?php foreach ($th_ajaran as $key => $value) : ?>
+								<?php $selected = ''; ?>
+								<?php if (in_array($value['id'], $data['title'])) : ?>
+									<?php $selected = 'selected'; ?>
+								<?php endif ?>
 								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
-						  <?php endforeach ?>
+							<?php endforeach ?>
 						<?php endif ?>
 					</select>
 				</div>
 				<div class="form-group">
 					<label for="kelas">kelas</label>
 					<select name="kelas" class="form-control">
-						<?php if (!empty($kelas)): ?>
-						  <?php foreach ($kelas as $key => $value): ?>
-						  	<?php $selected = ''; ?>
-						  	<?php if (in_array($value['id'], $data['nama'])): ?>
-						  		<?php $selected = 'selected'; ?>
-						  	<?php endif ?>
+						<?php if (!empty($kelas)) : ?>
+							<?php foreach ($kelas as $key => $value) : ?>
+								<?php $selected = ''; ?>
+								<?php if ($value['id'] == $data['data']['kelas_id']) : ?>
+									<?php $selected = 'selected'; ?>
+								<?php endif ?>
 								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['nama'] ?></option>
-						  <?php endforeach ?>
+							<?php endforeach ?>
 						<?php endif ?>
 					</select>
 				</div>

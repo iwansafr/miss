@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 require('./vendor/autoload.php');
 
@@ -17,24 +17,22 @@ class Kelas extends CI_Controller
 
 	public function proc_upload()
 	{
-		if(!empty($_FILES['doc']['name']))
-		{
+		if (!empty($_FILES['doc']['name'])) {
 			$file = $this->kelas_model->upload($_FILES['doc']);
 			// $file['desa_id'] = $_POST['desa_id'];
-      $data = ['status'=>'success','data'=>$file];
-      output_json($data);
-		}else{
-			$data = ['status'=>'error'];
+			$data = ['status' => 'success', 'data' => $file];
+			output_json($data);
+		} else {
+			$data = ['status' => 'error'];
 			output_json($data);
 		}
 	}
 
 	public function insert()
 	{
-		if(!empty($_POST['file']))
-		{
+		if (!empty($_POST['file'])) {
 			$file = $_POST['file'];
-			$file = FCPATH.'assets/images/modules/kelas/'.$file;
+			$file = FCPATH . 'assets/images/modules/kelas/' . $file;
 			$reader = PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 			$reader->setReadDataOnly(TRUE);
 
@@ -43,32 +41,27 @@ class Kelas extends CI_Controller
 			$data = array();
 			$title = array();
 			$i = 0;
-			foreach ($worksheet->getRowIterator() as $row) 
-			{
-		    $cellIterator = $row->getCellIterator();
-		    $cellIterator->setIterateOnlyExistingCells(FALSE);
-		    $j = 0;
-		    foreach ($cellIterator as $cell)
-		    {
-		    	if($i==0)
-		    	{
-		    		$title[] = $cell->getValue();
-		    	}else{
+			foreach ($worksheet->getRowIterator() as $row) {
+				$cellIterator = $row->getCellIterator();
+				$cellIterator->setIterateOnlyExistingCells(FALSE);
+				$j = 0;
+				foreach ($cellIterator as $cell) {
+					if ($i == 0) {
+						$title[] = $cell->getValue();
+					} else {
 						$data[$i][$title[$j]] = $cell->getValue();
-		    	}
-		    	// $data[$i][] = $cell->getValue();
-	    		$j++;
-	    		// $data[$i]['desa_id'] = $desa_id;
-		    }
+					}
+					// $data[$i][] = $cell->getValue();
+					$j++;
+					// $data[$i]['desa_id'] = $desa_id;
+				}
 				$i++;
 			}
-			if(!empty($data))
-			{
-				if($this->db->insert_batch('kelas', $data))
-				{
-					echo output_json(['status'=>1]);
-				}else{
-					echo output_json(['status'=>0]);
+			if (!empty($data)) {
+				if ($this->db->insert_batch('kelas', $data)) {
+					echo output_json(['status' => 1]);
+				} else {
+					echo output_json(['status' => 0]);
 				}
 			}
 			// echo output_json(array('status'=>1,'data'=>$data));
@@ -90,25 +83,26 @@ class Kelas extends CI_Controller
 
 		// Set document properties
 		$spreadsheet->getProperties()->setCreator('esoftgreat - software development')
-		->setLastModifiedBy('esoftgreat - software development')
-		->setTitle('Office 2007 XLSX Test Document')
-		->setSubject('Office 2007 XLSX Test Document')
-		->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
-		->setKeywords('office 2007 openxml php')
-		->setCategory('Test result file');
+			->setLastModifiedBy('esoftgreat - software development')
+			->setTitle('Office 2007 XLSX Test Document')
+			->setSubject('Office 2007 XLSX Test Document')
+			->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
+			->setKeywords('office 2007 openxml php')
+			->setCategory('Test result file');
 
 		// Add some data
 		$i = 0;
 		$str = '$spreadsheet->setActiveSheetIndex(0)';
-		foreach ($data as $key => $value)
-		{
-			$j = $i+1;
-			$str .= '->setCellValue("'.$alp[$i].'1","'.strtoupper($value).'")';
+		foreach ($data as $key => $value) {
+			$j = $i + 1;
+			$str .= '->setCellValue("' . $alp[$i] . '1","' . strtoupper($value) . '")';
 			$i++;
 		}
 		$str .= ';';
 		eval($str);
-		$spreadsheet->getActiveSheet()->setTitle('template '.date('d-m-Y H'));
+		// var_dump($str);
+		// die;
+		$spreadsheet->getActiveSheet()->setTitle('template ' . date('d-m-Y H'));
 
 		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
 		$spreadsheet->setActiveSheetIndex(0);
@@ -140,24 +134,21 @@ class Kelas extends CI_Controller
 	{
 		$data = $this->kelas_model->save();
 		$data['data'] = $this->kelas_model->all();
-		$this->load->view('index',['data'=>$data]);
+		$this->load->view('index', ['data' => $data]);
 	}
 
 	public function edit($id = 0)
 	{
-		if(!empty($id))
-		{
+		if (!empty($id)) {
 			$data = $this->kelas_model->save($id);
-			$this->load->view('index', ['data'=>$data]);
+			$this->load->view('index', ['data' => $data]);
 		}
-
 	}
-	public function delete($id=0)
+	public function delete($id = 0)
 	{
-		if(!empty($id))
-		{
+		if (!empty($id)) {
 			$data = $this->kelas_model->delete($id);
-			$this->load->view('index', ['data'=>$data]);
+			$this->load->view('index', ['data' => $data]);
 		}
-	}	
+	}
 }
