@@ -5,7 +5,7 @@ class User_model extends CI_model
 	public function check_login()
 	{
 		if (empty($this->session->userdata(str_replace('/', '_', base_url() . '_logged_in')))) {
-			$curent_url = base_url($_SERVER['PATH_INFO']);
+			$curent_url = base_url(@$_SERVER['PATH_INFO']);
 			$curent_url = urlencode($curent_url);
 			redirect(base_url('login?redirect_to=' . $curent_url));
 		} else {
