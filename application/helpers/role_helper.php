@@ -45,10 +45,13 @@ function check_role($role = '')
 		$link = str_replace('/', '_', base_url());
 		$user = @$_SESSION[$link.'_logged_in']['role'];
 		$output = false;
-		foreach ($user as $key => $value) 
+		if(!empty($user))
 		{
-			if($value['title']==$role){
-				$output = true;
+			foreach ($user as $key => $value) 
+			{
+				if($value['title']==$role){
+					$output = true;
+				}
 			}
 		}
 	}
