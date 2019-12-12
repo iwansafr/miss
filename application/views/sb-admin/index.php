@@ -15,7 +15,10 @@
     <?php endif ?>
     <div id="content-wrapper">
       <div class="container-fluid">
-        <?php $time = date('H:i:s');echo $time;?>
+        <?php if (is_guru()): ?>
+          <?php $time = date('H:i:s');echo $time;?>
+          <a href="<?php echo base_url('logout') ?>" style="float:right;"><i class="fa fa-sign-out"></i>logout</a>
+        <?php endif ?>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
