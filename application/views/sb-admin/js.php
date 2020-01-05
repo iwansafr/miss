@@ -26,6 +26,9 @@
 <?php if ($this->uri->rsegments[1] . '/' . $this->uri->rsegments[2] == 'siswa/upload') : ?>
   <script src="<?php echo base_url(); ?>assets/js/modules/siswa/script.js"></script>
 <?php endif ?>
+<?php if ($this->uri->rsegments[1] . '/' . $this->uri->rsegments[2] == 'guru/upload') : ?>
+  <script src="<?php echo base_url(); ?>assets/js/modules/guru/script.js"></script>
+<?php endif ?>
 
 <?php if ($this->uri->rsegments[1] . '/' . $this->uri->rsegments[2] == 'mapel/upload') : ?>
   <script src="<?php echo base_url(); ?>assets/js/modules/mapel/script.js"></script>
