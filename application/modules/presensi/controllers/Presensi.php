@@ -190,4 +190,18 @@ class presensi extends CI_Controller
 			$this->load->view('index', ['data' => $data]);
 		}
 	}
+
+	public function qr()
+	{
+		$kelas = $this->presensi_model->kelas();
+		$this->load->view('index',['kelas'=>$kelas]);
+	}
+	public function qrcode($id = 0)
+	{
+		if(!empty($id))
+		{
+			include APPPATH.'third_party/phpqrcode/qrlib.php';
+			QRcode::png(base_url('presensi/edit/'.$id));
+		}
+	}
 }
