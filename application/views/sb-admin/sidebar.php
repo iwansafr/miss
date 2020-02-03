@@ -53,6 +53,7 @@
         <h6 class="dropdown-header">Presensi:</h6>
         <a class="dropdown-item" href="<?php echo base_url('presensi/qr') ?>"><i class="fa fa-list"></i> QR Presensi Kelas</a>
         <a class="dropdown-item" href="<?php echo base_url('presensi_mapel/qr') ?>"><i class="fa fa-list"></i> QR Presensi Mapel</a>
+        <a class="dropdown-item" href="<?php echo base_url('jurnal/qr') ?>"><i class="fa fa-list"></i> QR Jurnal</a>
       </div>
     </li>
     <li class="nav-item">
