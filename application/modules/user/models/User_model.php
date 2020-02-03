@@ -173,6 +173,21 @@ class User_model extends CI_model
 		return $msg;
 	}
 
+	public function save_password($id = 0, $data = array())
+	{
+		if(!empty($id))
+		{
+			$msg['user'] = $this->db->get_where('user',['id'=>$id])->row_array();
+		}
+		if(!empty($data) && !empty($id))
+		{
+			$data['password'] = encrypt($data['password']);
+			$this->db->update('user',$data,['id'=>$id]);
+			$msg = ['status' => 'success', 'msg' => 'user berhasil disimpan'];
+		}
+		return $msg;
+	}
+
 	public function role_save($id = 0)
 	{
 		$msg = [];

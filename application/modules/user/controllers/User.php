@@ -33,11 +33,15 @@ class User extends CI_Controller
 	public function edit($id = 0)
 	{
 		$data = $this->user_model->save($id);
-
-		
 		$this->load->library('upload');
 		// $data['photo'] = $this->upload->data('photo');
 		$this->load->view('index',['data'=>$data,'role'=>$this->user_model->role_all()]);
+	}
+	public function edit_password($id = 0)
+	{
+		$post = $this->input->post();
+		$data = $this->user_model->save_password($id,$post);
+		$this->load->view('index',['data'=>$data]);
 	}
 	public function list()
 	{
