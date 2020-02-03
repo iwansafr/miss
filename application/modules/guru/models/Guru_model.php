@@ -36,7 +36,7 @@ class Guru_model extends CI_Model
 			];
 			$user_input = [
 				'username' => $data['kode'],
-				'password' => encrypt('123456'),
+				'password' => '123456',
 				'email'    => '-',
 				'active'   => 0,
 				'role'     => [3],
