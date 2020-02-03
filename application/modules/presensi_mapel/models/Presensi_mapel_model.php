@@ -138,7 +138,7 @@ class presensi_mapel_model extends CI_Model
 						'siswa_id' => $value['id'],
 						'kelas_id' => $value['kelas_id'],
 						'th_ajaran_id' => $c_th['id'],
-						'keterangan' => '0',
+						'keterangan' => '1',
 						'tanggal' => $tanggal,
 						'guru_id' => $find_mhp['guru_id'],
 						'mapel_id' => $find_mhp['mapel_id'],
