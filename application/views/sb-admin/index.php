@@ -16,7 +16,9 @@
     <div id="content-wrapper">
       <div class="container-fluid">
         <?php if (is_guru()): ?>
-          <?php $time = date('H:i:s');echo $time;?>
+          <span id="jam">
+            <?php $time = date('H:i:s');echo $time;?>
+          </span>
           <a href="<?php echo base_url('logout') ?>" style="float:right;">| <i class="fa fa-sign-out-alt"></i>logout</a>
           <?php 
           $user = $this->session->userdata(str_replace('/','_',base_url('_logged_in')));
