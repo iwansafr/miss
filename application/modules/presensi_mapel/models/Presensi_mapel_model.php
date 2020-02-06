@@ -29,7 +29,7 @@ class presensi_mapel_model extends CI_Model
 	{
 		$msg = [];
 		$day = date ('D');
-		$time = date('H:m');
+		$time = date('H:s');
 
 		switch($day){
 			case 'Mon':			
