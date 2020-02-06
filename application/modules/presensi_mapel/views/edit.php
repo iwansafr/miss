@@ -2,7 +2,7 @@
 <?php if (@$data['day'] == 'Sat' || @$data['day'] == 'Sun'): ?>
 	<?php alert('hari ini libur','warning') ?>
 <?php else: ?>
-	<?php if ($data['data'] == 'presensi null'): ?>
+	<?php if ($data['data'] == FALSE): ?>
 		<div class="col-md-12">
 			<?php alert('danger','Anda tidak memiliki jam di kelas ini') ?>
 		</div>
@@ -72,7 +72,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+					<div class="card-footer small text-muted">Updated at <?php echo date('H:i:s') ?></div>
 			<?php
 			$this->load->view($this->uri->rsegments[1] . '/' . 'modal');
 			?>

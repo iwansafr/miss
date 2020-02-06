@@ -176,7 +176,10 @@ class presensi_mapel extends CI_Controller
 			$id_u = get_user()['id'];
 			$this->db->select('id');
 			$exist = $this->db->get_where('guru', ['user_id' => $id_u])->row_array();
-			$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
+			if(!empty($exist))
+			{
+				$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time,'kelas_id'=>$id])->row_array();
+			}
 			if(!empty($find_mhp)){
 				$data = $this->presensi_mapel_model->save();
 				$kelas = $this->presensi_mapel_model->kelas();
@@ -208,7 +211,7 @@ class presensi_mapel extends CI_Controller
 				];
 				$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas, 'guru' => $o_guru, 'mapel' => $o_mapel, 'find_mhp' => $find_mhp]);
 			}else{
-				$data['data'] = 'presensi null';
+				$data['data'] = FALSE;
 				$this->load->view('index', ['data' => $data]);
 			}
 		}
