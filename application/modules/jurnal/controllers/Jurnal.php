@@ -105,7 +105,7 @@ class Jurnal extends CI_Controller
 		if(!empty($id))
 		{
 			include APPPATH.'third_party/phpqrcode/qrlib.php';
-			QRcode::png(base_url('jurnal'));
+			QRcode::png(base_url('jurnal/edit/'.$id));
 		}
 	}
 }
