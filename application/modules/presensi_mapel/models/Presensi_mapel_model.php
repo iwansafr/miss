@@ -178,4 +178,34 @@ class presensi_mapel_model extends CI_Model
 		$data = $this->db->get('mapel')->result_array();
 		return $data;
 	}
+
+	public function rekap()
+	{
+		$tgl = date("Y-m-d");
+		$guru = $this->db->query('SELECT id,nama,kode FROM guru')->result_array();
+		$data = [];
+		if(!empty($guru))
+		{
+			$absensi = $this->db->query('SELECT mp.guru_id,mp.kelas_id,gm.jam_mulai,gm.jam_selesai,mp.kode,mp.mapel_id FROM presensi_has_mapel AS mp INNER jOIN guru_has_mapel AS gm ON(gm.guru_id=mp.guru_id) WHERE mp.kode LIKE "%'.$tgl.'%"')->result_array();
+			foreach ($absensi as $key => $value) 
+			{
+				$data[$value['guru_id']][$value['kode']] = [
+					'kelas_id' => $value['kelas_id'],
+					'guru_id' => $value['guru_id'],
+					'mapel_id' => $value['mapel_id']
+				];
+			}
+		}
+		if(!empty($data))
+		{
+			foreach ($data as $key => $value) 
+			{
+				foreach ($guru as $gkey => $gvalue)
+				{
+					$data[$gvalue['id']][$key]['kode'] = $gvalue['kode']; 
+				}
+			}
+		}
+		pr($data);die();
+	}
 }

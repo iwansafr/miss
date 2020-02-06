@@ -125,6 +125,12 @@ class presensi_mapel extends CI_Controller
 		exit;
 	}
 
+	public function rekap()
+	{
+		$data = $this->presensi_mapel_model->rekap();
+		$this->load->view('index',['data'=>$data]);
+	}
+
 	public function index()
 	{
 		$this->load->view('index');
@@ -198,6 +204,7 @@ class presensi_mapel extends CI_Controller
 					'1' => ['id' => '1', 'title' => 'Berangkat', 'color' => 'btn-primary'],
 					'2' => ['id' => '2', 'title' => 'Ijin', 'color' => 'btn-warning'],
 					'3' => ['id' => '3', 'title' => 'Absen', 'color' => 'btn-danger'],
+					'3' => ['id' => '4', 'title' => 'Sakit', 'color' => 'btn-warning'],
 				];
 				$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas, 'guru' => $o_guru, 'mapel' => $o_mapel, 'find_mhp' => $find_mhp]);
 			}else{
