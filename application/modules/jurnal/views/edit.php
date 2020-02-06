@@ -2,6 +2,9 @@
 <div class="col-md-12">
 	<?php if (!empty($data['msg'])): ?>
 		<?php echo alert($data['status'],$data['msg']) ?>
+		<?php if ($data['status']=='danger'): ?>
+			<?php die(); ?>
+		<?php endif ?>
 		<?php if (!empty($data['msgs'])): ?>
 			<?php foreach ($data['msgs'] as $key => $value): ?>
 					<?php echo alert($data['status'], $value) ?>
@@ -34,6 +37,6 @@
 				</div>
 			</form>
 	<?php else: ?>
-		Saatnya istirahat
+		<?php echo alert('danger','Anda Tidak Punya Jam di Kelas ini') ?>
 	<?php endif ?>
 </div>

@@ -10,7 +10,7 @@ class Jurnal_model extends CI_Model
 	{
 		$msg = [];
 		$day = date ('D');
-		$time = date('H:m');
+		$time = date('H:i');
 		// $time = "07:30";
 
 		switch($day){
@@ -38,51 +38,58 @@ class Jurnal_model extends CI_Model
 		$username = get_user()['username'];
 		$this->db->select('id');
 		$exist = $this->db->get_where('guru', ['kode' => $username])->row_array();
-		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
-		$k = $find_mhp['kelas_id'];
-		$tanggal = date('Y-m-d');
-		$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
-		if(!empty($this->input->post()))
+		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time,'kelas_id'=>$id])->row_array();
+		if(!empty($find_mhp))
 		{
-			$msg = ['status'=>'danger', 'msg'=>'jurnal gagal disimpan'];
-			$data = $this->input->post();
-			$jurnal_input = [
-				'materi' => $data['materi'],
-				'guru_id' => $find_mhp['guru_id'],
-				'mapel_id' => $find_mhp['mapel_id'],
-				'tanggal' => $tanggal,
-				'kode' => $kode
-			];
-
+			$k = $find_mhp['kelas_id'];
+			$tanggal = date('Y-m-d');
+			$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
 			$this->db->select('id');
-			$exist = $this->db->get_where('jurnal', ['kode'=>$kode])->row_array();
-			if (!empty($exist)) {
-				$id = $exist['id'];
-			}
-			
-			if(!empty($id))
-			{
-				$current_user = $this->db->get_where('jurnal', ['id'=>$id])->row_array();
-				if($current_user['id'] == $exist['id'])
+			$exist = $this->db->get_where('presensi_has_mapel', ['kode'=> $kode])->row_array();
+			$exist1 = $this->db->get_where('jurnal', ['kode'=> $kode])->row_array();
+			if (empty($exist)) {
+				$msg = ['msg'=>'Silahkan isi presensi siswa terlebih dahulu','status'=>'danger'];
+			}else{
+				if(empty($exist1))
 				{
-					$this->db->where('id',$id);
-					if($this->db->update('jurnal',$jurnal_input))
-					{
-						$msg = ['status'=>'success', 'msg'=>'jurnal berhasil disimpan'];
-					}
+					$jurnal_input = [
+						'materi' => '',
+						'guru_id' => $find_mhp['guru_id'],
+						'mapel_id' => $find_mhp['mapel_id'],
+						'tanggal' => $tanggal,
+						'jam' => $time,
+						'kode' => $kode
+					];
+					$this->db->insert('jurnal',$jurnal_input);
 				}else{
 					$msg['msgs'][] = 'Jurnal sudah di input';
 				}
-			}else{
+			}
+			if(!empty($this->input->post()))
+			{
+				$msg = ['status'=>'danger', 'msg'=>'jurnal gagal disimpan'];
+				$data = $this->input->post();
+				$jurnal_input = [
+					'materi' => $data['materi'],
+					'guru_id' => $find_mhp['guru_id'],
+					'mapel_id' => $find_mhp['mapel_id'],
+					'tanggal' => $tanggal,
+					'jam' => $time,
+					'kode' => $kode
+				];
 				$this->db->select('id');
-				$exist = $this->db->get_where('presensi_has_mapel', ['kode'=> $kode])->row_array();
-				$exist1 = $this->db->get_where('jurnal', ['kode'=> $kode])->row_array();
-				if (empty($exist)) {
-					$msg['msgs'][] = 'Silahkan isi presensi siswa terlebih dahulu';
-				}else{
-					if(empty($exist1))
+				$exist = $this->db->get_where('jurnal', ['kode'=>$kode])->row_array();
+				if (!empty($exist)) {
+					$id = $exist['id'];
+				}
+				
+				if(!empty($id))
+				{
+					$current_user = $this->db->get_where('jurnal', ['id'=>$id])->row_array();
+					if($current_user['id'] == $exist['id'])
 					{
-						if($this->db->insert('jurnal',$jurnal_input))
+						$this->db->where('id',$id);
+						if($this->db->update('jurnal',$jurnal_input))
 						{
 							$msg = ['status'=>'success', 'msg'=>'jurnal berhasil disimpan'];
 						}
@@ -91,10 +98,10 @@ class Jurnal_model extends CI_Model
 					}
 				}
 			}
-		}
-		if(!empty($id))
-		{
-			$msg['data'] = $this->db->get_where('jurnal',['id'=>$id])->row_array();
+			if(!empty($id))
+			{
+				$msg['data'] = $this->db->get_where('jurnal',['id'=>$id])->row_array();
+			}
 		}
 		return $msg;
 	}

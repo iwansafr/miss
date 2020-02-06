@@ -30,7 +30,7 @@ class Jurnal extends CI_Controller
 	public function edit($id = 0)
 	{
 		$day = date ('D');
-		$time = date('H:m');
+		$time = date('H:i');
 		// $time = "07:30";
 
 		switch($day){
@@ -56,26 +56,35 @@ class Jurnal extends CI_Controller
 		// $hari_ini = 1;
 		
 		$data = $this->jurnal_model->save($id);
-
 		$username = get_user()['username'];
 		$exist = $this->db->get_where('guru', ['kode' => $username])->row_array();
-		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
+		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time,'kelas_id'=>$id])->row_array();
+		if(!empty($find_mhp))
+		{
+			$tanggal = date('Y-m-d');
+			$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
+			$check_jurnal = $this->db->get_where('jurnal', ['kode' => $kode])->row_array();
+			$mapel = $this->jurnal_model->mapel();
+			$o_mapel = [];
+			foreach ($mapel as $key => $value) {
+				$o_mapel[$value['id']] = $value['nama'];
+			}
 
-		$tanggal = date('Y-m-d');
-		$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
-		$check_jurnal = $this->db->get_where('jurnal', ['kode' => $kode])->row_array();
-
-		$mapel = $this->jurnal_model->mapel();
-		$o_mapel = [];
-		foreach ($mapel as $key => $value) {
-			$o_mapel[$value['id']] = $value['nama'];
+			$kelas = $this->jurnal_model->kelas();
+			$o_kelas = [];
+			foreach ($kelas as $key => $value) {
+				$o_kelas[$value['id']] = $value['nama'];
+			}
+		}else{
+			$data = [];
+			$exist = [];
+			$find_mhp = [];
+			$check_jurnal = [];
+			$mapel = [];
+			$o_kelas = [];
+			$o_mapel =[];
 		}
 
-		$kelas = $this->jurnal_model->kelas();
-		$o_kelas = [];
-		foreach ($kelas as $key => $value) {
-			$o_kelas[$value['id']] = $value['nama'];
-		}
 
 		$this->load->view('index', ['data' => $data, 'guru' => $exist, 'guru_has_mapel' => $find_mhp, 'check_jurnal' => $check_jurnal, 'mapel' => $o_mapel, 'kelas' => $o_kelas]);
 	}
