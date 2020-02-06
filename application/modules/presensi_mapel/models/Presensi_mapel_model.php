@@ -86,6 +86,7 @@ class presensi_mapel_model extends CI_Model
 				'th_ajaran_id' => $c_th['id'],
 				'keterangan' => $data['keterangan'],
 				'tanggal' => $tanggal,
+				'jam'=>date('H:i:s'),
 				'guru_id' => $find_mhp['guru_id'],
 				'mapel_id' => $find_mhp['mapel_id'],
 				'kode' => $kode,
@@ -99,6 +100,7 @@ class presensi_mapel_model extends CI_Model
 						'th_ajaran_id' => $c_th['id'],
 						'keterangan' => '1',
 						'tanggal' => $tanggal,
+						'jam'=>date('H:i:s'),
 						'guru_id' => $find_mhp['guru_id'],
 						'mapel_id' => $find_mhp['mapel_id'],
 						'kode' => $kode

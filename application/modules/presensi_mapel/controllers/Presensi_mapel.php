@@ -146,7 +146,7 @@ class presensi_mapel extends CI_Controller
 	public function edit($id = 0)
 	{
 		$day = date ('D');
-		$time = date('H:m');
+		$time = date('H:i');
 
 		switch($day){
 			case 'Mon':			

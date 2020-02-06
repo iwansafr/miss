@@ -57,7 +57,8 @@ class presensi_model extends CI_Model
 				'kelas_id' => $data['kelas_id'],
 				'th_ajaran_id' => $c_th['id'],
 				'keterangan' => $data['keterangan'],
-				'tanggal' => $tanggal
+				'tanggal' => $tanggal,
+				'jam'=>date('H:i:s')
 			];
 			if ($q_rows != $presensi_rows) {
 				$this->db->delete('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')]);
@@ -67,7 +68,8 @@ class presensi_model extends CI_Model
 						'kelas_id' => $value['kelas_id'],
 						'th_ajaran_id' => $c_th['id'],
 						'keterangan' => '0',
-						'tanggal' => $tanggal
+						'tanggal' => $tanggal,
+						'jam'=>date('H:i:s')
 					];
 					$this->db->insert('presensi', $presensi_input);
 				}
@@ -105,7 +107,8 @@ class presensi_model extends CI_Model
 						'kelas_id' => $value['kelas_id'],
 						'th_ajaran_id' => $c_th['id'],
 						'keterangan' => '0',
-						'tanggal' => $tanggal
+						'tanggal' => $tanggal,
+						'jam'=>date('H:i:s')
 					];
 					$this->db->insert('presensi', $presensi_input);
 				}
