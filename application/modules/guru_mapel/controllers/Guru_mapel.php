@@ -128,4 +128,22 @@ class guru_mapel extends CI_Controller
 			$this->load->view('index', ['data' => $data]);
 		}
 	}
+	public function mapel_edit($id = 0)
+	{
+		if(!empty($id))
+		{
+			$data['is_saved'] = $this->guru_mapel_model->update($id);
+			$data['data'] = $this->guru_mapel_model->get_mapel($id);
+			$data['mapel'] = $this->guru_mapel_model->mapel();
+			$data['kelas'] = $this->guru_mapel_model->kelas();
+			$data['hari'] = [
+			'1' => ['id' => '1', 'nama' => 'Senin'],
+			'2' => ['id' => '2', 'nama' => 'Selasa'],
+			'3' => ['id' => '3', 'nama' => 'Rabu'],
+			'4' => ['id' => '4', 'nama' => 'Kamis'],
+			'5' => ['id' => '5', 'nama' => 'Jumat'],
+		];
+			$this->load->view('index', $data);
+		}
+	}
 }

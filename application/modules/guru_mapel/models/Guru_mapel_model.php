@@ -72,4 +72,21 @@ class guru_mapel_model extends CI_Model
 		$data = $this->db->get('th_ajaran')->result_array();
 		return $data;
 	}
+	public function update($id = 0)
+	{
+		$data = $this->input->post();
+		if(!empty($data))
+		{
+			if($this->db->update('guru_has_mapel',$data,['id'=>$id])){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+	public function get_mapel($id = 0)
+	{
+		$data = $this->db->get_where('guru_has_mapel',['id'=>$id])->row_array();
+		return $data;
+	}
 }
