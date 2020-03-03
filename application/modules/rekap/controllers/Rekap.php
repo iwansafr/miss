@@ -11,6 +11,7 @@ class Rekap extends CI_Controller{
 	}
 	public function kehadiran_guru(){
 		$data['data'] = $this->rekap_model->jadwal();
+		$data['presensi'] = $this->rekap_model->presensi();
 		$this->load->view('index',$data);
 	}
 }

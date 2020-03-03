@@ -122,3 +122,53 @@ function output_json($array)
 	echo $output;
 	exit();
 }
+
+function hari_ini(){
+	$hari = date ("D");
+ 	$hari_ini = [];
+
+	switch($hari){
+		case 'Sun':
+			$hari_ini['hari'] = "Minggu";
+			$hari_ini['hari_ke'] = 0;
+		break;
+ 
+		case 'Mon':			
+			$hari_ini['hari'] = "Senin";
+			$hari_ini['hari_ke'] = 1;
+		break;
+ 
+		case 'Tue':
+			$hari_ini['hari'] = "Selasa";
+			$hari_ini['hari_ke'] = 2;
+		break;
+ 
+		case 'Wed':
+			$hari_ini['hari'] = "Rabu";
+			$hari_ini['hari_ke'] = 3;
+		break;
+ 
+		case 'Thu':
+			$hari_ini['hari'] = "Kamis";
+			$hari_ini['hari_ke'] = 4;
+		break;
+ 
+		case 'Fri':
+			$hari_ini['hari'] = "Jumat";
+			$hari_ini['hari_ke'] = 5;
+		break;
+ 
+		case 'Sat':
+			$hari_ini['hari'] = "Sabtu";
+			$hari_ini['hari_ke'] = 6;
+		break;
+		
+		default:
+			$hari_ini['hari'] = "Tidak di ketahui";		
+			$hari_ini['hari_ke'] = 7;
+		break;
+	}
+ 
+	return $hari_ini;
+ 
+}
